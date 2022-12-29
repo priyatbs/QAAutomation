@@ -1,3 +1,12 @@
+/*
+ * @ScriptName : RestAssured Api testing Integration 
+ * @Description : API Testing using selenium
+ * @author Priyadarshini
+ * @Created On : 21/12/2022
+ * @Version : 0.1
+ */
+
+
 package com.org.tbs.apitestingresassured;
 
 import org.testng.annotations.AfterTest;
