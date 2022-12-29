@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test name="Test">
+    <classes>
+      <class name="tests.Login"/>
+      <class name="tests.Reservation"/>
+      <class name="tests.Tablesfunc"/>
+      <class name="tests.ItemMenuClassFamily"/>
+      <class name="tests.PaymentType"/>
+      <class name="tests.Customerreceipt"/>
+      <class name="tests.SleepTestcases"/>
+      <class name="tests.Reports"/>
+      
+      <!-- <class name="tests.Reports"/>
+       <class name="tests.Ordercreation"/>
+       <class name="tests.Orders"/>
+      <class name="tests.Customer"/>
+       <class name="tests.Reservation"/>
+      <class name="tests.Cancelorder"/>
+      <class name="tests.Reservation"/>
+      <class name="tests.Itemlist"/>
+      <class name="tests.Cancelorder"/>
+      <class name="tests.Customerreceipt"/>
+      <class name="tests.SleepTestcases"/>
+      <class name="tests.SideMenu"/>
+      <class name="tests.Footer"/>
+      <class name="tests.Floatin_Floatout"/>
+      <class name="tests.Tables"/>
+      <class name="tests.Reprint"/>
+      <class name="tests.FavoriteandAvailable"/>
+      <class name="tests.Customer"/>
+      <class name="tests.LinkItemsUI"/>
+       <class name="tests.Orders"/>
+      <class name="tests.Signoff_Endofday"/>
+      <class name="tests.test"/> -->
+    </classes>
+  </test> 
+</suite> 
