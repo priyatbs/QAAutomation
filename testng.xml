@@ -1,0 +1,13 @@
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test thread-count="1" name="Test">
+    <classes>
+       <class name="Script.Login"/>
+    <class name="Script.BookAppointment"/>
+   
+      
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+
