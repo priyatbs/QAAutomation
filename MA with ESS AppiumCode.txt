@@ -1,0 +1,306 @@
+/*
+ * ScriptName : Mobile Attendance with ESS
+ * Description : Mobile Automation using Appium Studio
+ * Created By : Priyadarshini
+ * Created On : 6-Apr-2023
+ * Version : 0.1
+ */
+
+
+//package <set your test package>;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.SwipeElementDirection;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.By;
+import org.testng.annotations.*;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.util.logging.Level;
+
+public class MAandESSMobileAutomation {
+    private String reportDirectory = "reports";
+    private String reportFormat = "xml";
+    private String testName = "MAandESSMobileAutomation";
+    protected AndroidDriver<AndroidElement> driver = null;
+
+    DesiredCapabilities dc = new DesiredCapabilities();
+ /************************************************Configuration*************************************************************/   
+    @BeforeMethod
+    public void setUp() throws MalformedURLException {
+        dc.setCapability("reportDirectory", reportDirectory);
+        dc.setCapability("reportFormat", reportFormat);
+        dc.setCapability("testName", testName);
+        dc.setCapability(MobileCapabilityType.UDID, "CMPJFMRWCYRCWC5T");
+        dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.selfservice");
+        dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".MainActivity");
+        dc.setCapability(MobileCapabilityType.NO_RESET, true);
+        dc.setCapability("instrumentApp", true);
+        driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), dc);
+        driver.setLogLevel(Level.INFO);
+    }
+
+    @Test
+    public void testMAandESSMobileAutomation() {
+/********************************************************************Login*********************************************************************************************/
+        driver.findElement(By.xpath("//*[@hint='Enter ID']")).sendKeys("550055");
+        driver.swipe(402, 334, 402, -439, 671);
+        driver.findElement(By.xpath("//*[@hint='Password']")).sendKeys("123456");
+        driver.findElement(By.xpath("//*[@text='LOGIN']")).click();
+/***********************************************************************Dashboard*************************************************************************************/
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("Dashboard")));
+        driver.findElement(By.xpath("//*[@text='Dashboard']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("Attendance Log")));
+/*************************************************************************AttendanceLog***********************************************************************************/        
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Attendance Log']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Month']")));
+        driver.findElement(By.xpath("//*[@text='Month']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Week']")));
+        driver.findElement(By.xpath("//*[@text='Week']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Employee Profile']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.scroll.ReactScrollView' and ./*[./*[./*[./*[@class='com.facebook.react.views.view.ReactViewGroup']]]]]")).click();
+/****************************************************************Leave Request and Approval Modules********************************************************************************************/
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Request']")));
+        driver.findElement(By.xpath("//*[@text='Request']")).click();
+        driver.findElement(By.xpath("//*[@text='Leave']")).click();
+        driver.findElement(By.xpath("//*[@text='0000666602-Mohan   ']")).click();
+        driver.findElement(By.xpath("//*[@text='NORMAL VACATION']")).click();
+        driver.findElement(By.xpath("//*[@contentDescription='No' and ./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[@class='android.widget.FrameLayout']]]]]]]]]]")).click();
+        driver.swipe(378, 626, 378, -257, 705);
+        driver.swipe(378, 626, 378, -36, 714);
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy    -    dd-mm-yyyy']")).click();
+        driver.findElement(By.xpath("//*[@text='13']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='20']")));
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        driver.swipe(368, 844, 381, -57, 699);
+        driver.swipe(376, 705, 402, -236, 690);
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.view.ReactViewGroup' and @height>0 and ./*[@text='SUBMIT']]")));
+        driver.getKeyboard().sendKeys("test");
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.view.ReactViewGroup' and @height>0 and ./*[@text='SUBMIT']]")));
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.view.ReactViewGroup' and @height>0 and ./*[@text='SUBMIT']]")));
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+/**********************************************************************Payroll Slip**************************************************************************************/
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='Leave'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup']]]")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Payroll Slip']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Payroll Slip']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='04/2023']")));
+        driver.findElement(By.xpath("//*[@text='04/2023']")).click();
+        driver.swipe(292, 763, 284, 907, 397);
+        driver.swipe(294, 721, 294, 855, 264);
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.swipe(334, 400, 336, -405, 645);
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='04/2023']")));
+        driver.findElement(By.xpath("//*[@text=' DOWNLOAD']")).click();
+/**********************************************************************Salary Certificate request and approval**************************************************************************************/
+        new WebDriverWait(driver, 80).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        new WebDriverWait(driver, 80).until(ExpectedConditions.presenceOfElementLocated(By.xpath("Salary Certificate")));
+        driver.findElement(By.xpath("//*[@text='Salary Certificate']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("tbs");
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.scroll.ReactScrollView' and ./*[./*[@text='Entity/Institution Name ']]]")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.scroll.ReactScrollView' and ./*[./*[@text='Entity/Institution Name ']]]")).click();
+        driver.findElement(By.xpath("//*[@text='English']")).click();
+        new WebDriverWait(driver, 20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Purpose']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("tbs");
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUBMIT']")));
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Salary Certificate']]]")).click();
+/**************************************************************************Loan Request and approval**********************************************************************************/        
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Loan']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUBMIT']")));
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Loan']]]")).click();
+ /*************************************************************************Business Travel request and Approval****************************************************************************/       
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Business Travel']")).click();
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy    -    dd-mm-yyyy']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='13']")));
+        driver.findElement(By.xpath("//*[@text='13']")).click();
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Please Choose..']")));
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='Trainee']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='No']")).click();
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Business Travel ']]]")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Pending']")));
+/************************************************************************Training travel Request and Approval************************************************************************************/
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Training Travel']")));
+        driver.findElement(By.xpath("//*[@text='Training Travel']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='dd-mm-yyyy    -    dd-mm-yyyy']")));
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy    -    dd-mm-yyyy']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='13']")));
+        driver.findElement(By.xpath("//*[@text='13']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='20']")));
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Please Choose..']")));
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='Trainee']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='No']")).click();
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Training Travel']]]")).click();
+/**********************************************Transfer Training and approval********************************************************************************/
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Transfer']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.swipe(284, 636, 284, -247, 690);
+        driver.findElement(By.xpath("//*[@text='Transfer']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Select']")).click();
+        driver.findElement(By.xpath("//*[@text='Within branch']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Select']")).click();
+        driver.findElement(By.xpath("//*[@text='Dept 198']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("RIYAD_NORTH")));
+        driver.findElement(By.xpath("//*[@text='Please Select']")).click();
+        driver.findElement(By.xpath("//*[@text='solaimania']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Select']")).click();
+        driver.findElement(By.xpath("//*[@text='CC 222']")).click();
+        driver.swipe(452, 368, 452, -626, 685);
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='20']")));
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("test");
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        new WebDriverWait(driver, 60).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUBMIT']")));
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Transfer']]]")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Transfer']]]")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")));
+/******************************************************Overtime******************************************************************************/        
+driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Overtime']")));
+        driver.findElement(By.xpath("//*[@text='Overtime']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUBMIT']")));
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='Overtime'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup']]]")).click();
+ /******************************************************Expense claims******************************************************************************/              
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Expense Claims']")).click();
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Expense Claims']]]")).click();
+/******************************************************Delegation******************************************************************************/        
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Delegation']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Select']")).click();
+        driver.findElement(By.xpath("//*[@contentDescription='Mohan   ' and ./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[@class='android.widget.FrameLayout']]]]]]]]]]")).click();
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy    -    dd-mm-yyyy']")).click();
+        driver.findElement(By.xpath("//*[@text='13']")).click();
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("test");
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Delegation']]]")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Goals']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='Long Term-002']")).click();
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy    -    dd-mm-yyyy']")).click();
+        driver.findElement(By.xpath("//*[@text='13']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='20']")));
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='Test-001']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='High']")).click();
+        driver.swipe(478, 660, 478, -334, 683);
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.view.ReactViewGroup' and @height>0 and ./*[@text='SUBMIT']]")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.view.ReactViewGroup' and @height>0 and ./*[@text='SUBMIT']]")).click();
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Goals']]]")).click();
+/******************************************************Local Training******************************************************************************/                
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Local Training']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.modal.ReactModalHostView']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("test");
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.scroll.ReactScrollView' and ./*[./*[@text='Training Title ']]]")).click();
+        driver.findElement(By.xpath("//*[@text='13']")).click();
+        driver.findElement(By.xpath("//*[@text='20']")).click();
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("delhi");
+        driver.swipe(271, 450, 271, -102, 654);
+        driver.swipe(368, 431, 373, 26, 728);
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("5000");
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("test");
+        try{Thread.sleep(5000);} catch(Exception ignore){}
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Local Training']]]")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Local Training']]]")).click();
+/******************************************************Documents******************************************************************************/                
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.swipe(189, 850, 189, 76, 621);
+        driver.findElement(By.xpath("//*[@text='Documents']")).click();
+        try{Thread.sleep(5000);} catch(Exception ignore){}
+        try{Thread.sleep(5000);} catch(Exception ignore){}
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("test");
+        driver.swipe(415, 381, 415, -173, 638);
+        try{Thread.sleep(5000);} catch(Exception ignore){}
+        try{Thread.sleep(5000);} catch(Exception ignore){}
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).click();
+/******************************************************Assets******************************************************************************/        
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Assets']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@text='Hardware']")).click();
+        driver.findElement(By.xpath("//*[@text='Please Choose..']")).click();
+        driver.findElement(By.xpath("//*[@contentDescription='undefined flatlist' and ./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[./parent::*[@class='android.widget.FrameLayout']]]]]]]")).click();
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.view.ReactViewGroup' and @height>0 and ./*[@text='5'] and ./parent::*[./parent::*[./parent::*[./parent::*[@class='android.widget.FrameLayout']]]]]")).click();
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        driver.swipe(315, 392, 323, -476, 684);
+        driver.findElement(By.xpath("//*[@text='dd-mm-yyyy']")).click();
+        driver.findElement(By.xpath("//*[@text='25']")).click();
+        driver.findElement(By.xpath("//*[@text='OK']")).click();
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")));
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.textinput.ReactEditText']")).sendKeys("test");
+        driver.swipe(410, 321, 410, -563, 669);
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='SUBMIT']")));
+        driver.findElement(By.xpath("//*[@text='SUBMIT']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@text='Assets']]]")).click();
+/******************************************************Benefits******************************************************************************/        
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[(./preceding-sibling::* | ./following-sibling::*)[@text='PriyaSangeetha'] and ./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+        driver.findElement(By.xpath("//*[@text='Benefits']")).click();
+        driver.findElement(By.xpath("//*[@class='com.facebook.react.views.image.ReactImageView' and ./parent::*[./parent::*[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.view.ReactViewGroup'] and (./preceding-sibling::* | ./following-sibling::*)[@class='com.facebook.react.views.image.ReactImageView']]]")).click();
+/******************************************************Signout******************************************************************************/        
+        driver.findElement(By.xpath("//*[@text='Sign Out']")).click();
+/******************************************************Register******************************************************************************/        
+        driver.findElement(By.xpath("//*[@text='Register']")).click();
+        driver.findElement(By.xpath("//*[@hint='Enter ID']")).sendKeys("503");
+        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@hint='Email']")));
+        driver.findElement(By.xpath("//*[@hint='Email']")).sendKeys("test@tbs.com");
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@hint='Phone Number']")));
+        driver.findElement(By.xpath("//*[@hint='Phone Number']")).sendKeys("123456789");
+        new WebDriverWait(driver, 30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='REGISTER']")));
+        driver.findElement(By.xpath("//*[@text='REGISTER']")).click();
+        driver.swipe(81, 978, 531, 1015, 3335);
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
+    }
+}
